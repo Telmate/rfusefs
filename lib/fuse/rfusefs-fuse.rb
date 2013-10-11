@@ -317,11 +317,19 @@ module FuseFS
 
         end
 
-        #def chmod(path,mode)
-        #end
+        # Paperclip class these methods so we need them instead of
+        # it blowing up and saying 'Function Not Implemented'
+        def chmod(ctx,path,mode)
+            return wrap_context(ctx,__method__,path,mode) if ctx
+            
+            return 0 #Do nothing for now
+        end
 
-        #def chown(path,uid,gid)
-        #end
+        def chown(ctx,path,uid,gid)
+            return wrap_context(ctx,__method__,path,uid,gid) if ctx
+            
+            return 0 #Do nothing for now
+        end
 
         def utime(ctx,path,actime,modtime)
             return wrap_context(ctx,__method__,path,actime,modtime) if ctx
